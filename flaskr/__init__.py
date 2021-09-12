@@ -36,7 +36,7 @@ def create_app(test_config=None):
 
 
 
-    @app.route('/questions')
+    @app.route('/https://triviafront.herokuapp.com/')
     def questions():
         page = request.args.get('page',1,type=int)
         start = (page-1) *10
