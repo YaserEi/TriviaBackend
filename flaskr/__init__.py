@@ -111,7 +111,7 @@ def create_app(test_config=None):
           #'currentCategory': categories
         })
 
-    @app.route('https://triviafront.herokuapp.com/categories/<int:id>/questions', methods = ['GET'])
+    @app.route('https://triviaback.herokuapp.com/categories/<int:id>/questions', methods = ['GET'])
     def filter_questions(id):
         id +=1
         questions = Question.query.filter_by(category = id).all()
