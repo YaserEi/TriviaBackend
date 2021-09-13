@@ -65,6 +65,7 @@ def questions():
 
 
 @app.route('/questions/<id>', methods=['DELETE'])
+@cross_origin()
 def delete(id):
     question = Question.query.filter_by(id = id).first()
     if not question:
@@ -82,6 +83,7 @@ def delete(id):
 
 
 @app.route('/questions', methods = ['POST'])
+@cross_origin()
 def add_question():
     body=request.get_json()
     question = body['question']
@@ -104,6 +106,7 @@ def add_question():
 
 
 @app.route('/questionSearch', methods=['POST'])
+@cross_origin()
 def search():
     body = request.get_json()
     search_result = Question.query.filter(Question.question.ilike('%'+body['searchTerm']+'%')).all()
@@ -117,6 +120,7 @@ def search():
     })
 
 @app.route('/categories/<int:id>/questions', methods = ['GET'])
+@cross_origin()
 def filter_questions(id):
     id +=1
     questions = Question.query.filter_by(category = id).all()
@@ -133,6 +137,7 @@ def filter_questions(id):
 
 
 @app.route('/quizzes', methods = ['POST'])
+@cross_origin()
 def quizzes():
     body = request.get_json()
     print(body["quiz_category"]['id'])
@@ -151,6 +156,7 @@ def quizzes():
 
 # Create error handlers for all expected errors
 @app.errorhandler(404)
+@cross_origin()
 def not_found(error):
     return jsonify({
     "success": False,
@@ -158,6 +164,7 @@ def not_found(error):
     "message":"resource not found"
     }) , 404
 @app.errorhandler(422)
+@cross_origin()
 def not_found(error):
     return jsonify({
     "success": False,
