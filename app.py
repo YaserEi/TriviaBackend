@@ -139,7 +139,6 @@ def filter_questions(id):
 
 
 @app.route('/quizzes', methods = ['POST'])
-@cross_origin()
 def quizzes():
     body = request.get_json()
     print(body["quiz_category"]['id'])
