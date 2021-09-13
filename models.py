@@ -1,41 +1,20 @@
 import os
+import flask
 from sqlalchemy import Column, String, Integer, create_engine
 from flask_sqlalchemy import SQLAlchemy
 import json
 from sqlalchemy_utils import database_exists, create_database
 import sqlalchemy
+from flask_migrate import Migrate
 
-
+app = flask(__name__)
+db = SQLAlchemy()
+migrate = Migrate(app, db)
 database_path = os.environ['DATABASE_URL']
 
 db = SQLAlchemy()
 
-'''
-setup_db(app)
-    binds a flask application and a SQLAlchemy service
-'''
-def setup_db(app, database_path=database_path):
 
-    if database_path.startswith("postgres://"):
-       database_path = database_path.replace("postgres://", "postgresql://", 1)
-
-    app.config["SQLALCHEMY_DATABASE_URI"] = database_path
-
-    engine = sqlalchemy.create_engine(database_path)
-
-    if not database_exists(engine.url):
-      create_database(engine.url)
-
-    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-
-    db.app = app
-    db.init_app(app)
-    db.create_all()
-
-'''
-Question
-
-'''
 class Question(db.Model):
   __tablename__ = 'questions'
 
