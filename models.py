@@ -16,10 +16,14 @@ setup_db(app)
 '''
 def setup_db(app, database_path=database_path):
 
+    
+
+    if database_path.startswith("postgres://"):
+       database_path = database_path.replace("postgres://", "postgresql://", 1)
+
     app.config["SQLALCHEMY_DATABASE_URI"] = database_path
 
-
-    engine = sqlalchemy.create_engine(app.config["SQLALCHEMY_DATABASE_URI"])
+    engine = sqlalchemy.create_engine(database_path)
 
 
     if not database_exists(engine.url):
