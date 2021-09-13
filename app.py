@@ -1,7 +1,7 @@
 import os
 from flask import Flask, request, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 import random
 from flask_moment import Moment
 
@@ -41,6 +41,7 @@ def categories():
 
 
 @app.route('/questions')
+@cross_origin()
 def questions():
     page = request.args.get('page',1,type=int)
     start = (page-1) *10
