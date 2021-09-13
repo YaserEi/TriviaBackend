@@ -20,6 +20,7 @@ with app.app_context():
 
 
 @app.after_request
+@cross_origin()
 def after_request(response):
     response.headers.add('Access_Control_Allow_Headers', 'Content-Type, Authorization, True')
     response.headers.add('Access_control_Allow_Methods', "GET, POST, PATCH, DELETE, OPTIONS")
@@ -27,6 +28,7 @@ def after_request(response):
     return response
 
 @app.route('/categories', methods=['GET'])
+@cross_origin()
 def categories():
     cats=Category.query.all()
     formated_cat = [cat.format() for cat in cats]
