@@ -6,7 +6,7 @@ from sqlalchemy_utils import database_exists, create_database
 import sqlalchemy
 
 database_name = "trivia"
-database_path = "postgres://{}/{}".format('localhost:5432', database_name)
+database_path = os.environ['DATABASE_URL']
 
 db = SQLAlchemy()
 
@@ -15,14 +15,11 @@ setup_db(app)
     binds a flask application and a SQLAlchemy service
 '''
 def setup_db(app, database_path=database_path):
-    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
 
-    if SQLALCHEMY_DATABASE_URI.startswith("postgres://"):
-      SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URI.replace("postgres://", "postgresql://", 1)
+    app.config["SQLALCHEMY_DATABASE_URI"] = database_path
 
-    app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
 
-    engine = sqlalchemy.create_engine("SQLALCHEMY_DATABASE_URI")
+    engine = sqlalchemy.create_engine(app.config["SQLALCHEMY_DATABASE_URI"])
 
 
     if not database_exists(engine.url):
