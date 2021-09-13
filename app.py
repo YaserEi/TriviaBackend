@@ -6,7 +6,7 @@ import random
 from flask_moment import Moment
 
 
-from models import app, setup_db, Question, Category, db
+from models import app,  Question, Category, db
 
 QUESTIONS_PER_PAGE = 10
 

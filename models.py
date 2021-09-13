@@ -1,5 +1,5 @@
 import os
-import flask
+from flask import Flask
 from sqlalchemy import Column, String, Integer, create_engine
 from flask_sqlalchemy import SQLAlchemy
 import json
@@ -7,12 +7,12 @@ from sqlalchemy_utils import database_exists, create_database
 import sqlalchemy
 from flask_migrate import Migrate
 
-app = flask(__name__)
+app = Flask(__name__)
 db = SQLAlchemy()
 migrate = Migrate(app, db)
-database_path = os.environ['DATABASE_URL']
 
-db = SQLAlchemy()
+
+
 
 
 class Question(db.Model):
